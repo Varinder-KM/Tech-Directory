@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <title>Tech Directory</title>
+</head>
+<body>
+    <form action="/index/" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="city">City</label>
+            <select id="city" name="city" onchange="updateAreaList()">
+                {% for c in city %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="area">Area</label>
+            <select id="area" name="area">
+                <option value="downtown">Downtown</option>
+            </select>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+    
+    <script>
+        const areaOptions = {
+            'Bengaluru': ["Electronic City", "Banashankari", "Sarjapur Road", "Whitefield", "Devanahalli", "Thanisandra Main Road", "Indiranagar", "Jayanagar", "Koramangala", "HSR Layout", "Sadashivanagar", "Bannerghatta Road", "Central Business District", "Rajaji Nagar", "Malleswaram", "Frazer Town", "Cooke Town", "Basavanagudi", "BTM Layout", "Ulsoor"]
+        };
+
+        function updateAreaList() {
+            const citySelect = document.getElementById('city');
+            const areaSelect = document.getElementById('area');
+            const selectedCity = citySelect.value;
+
+            // Clear existing options
+            while (areaSelect.options.length > 0) {
+                areaSelect.remove(0);
+            }
+
+            // Add new options
+            if (areaOptions[selectedCity]) {
+                areaOptions[selectedCity].forEach(area => {
+                    const option = document.createElement('option');
+                    option.value = area.toLowerCase().replace(/\s+/g, '_');
+                    option.text = area;
+                    areaSelect.add(option);
+                });
+            }
+        }
+
+        // Initialize the area list on page load
+        document.addEventListener('DOMContentLoaded', (event) => {
+            updateAreaList();
+        });
+    </script>
+</body>
+</html>
