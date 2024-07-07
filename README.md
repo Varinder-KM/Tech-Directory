@@ -47,4 +47,15 @@
 2. Open your web browser and go to http://127.0.0.1:8000/.
 3. Use the web interface to specify the location and generate the CSV file.
 
+## Add More Locations
+1. Update **mainapp/views.py** :
+   
+   ![city.png](https://github.com/Varinder-KM/Tech-Directory/blob/master/city.png)
+
+
+2. Update **Index.html**:
+   
+   ![city.png](https://github.com/Varinder-KM/Tech-Directory/blob/master/area.png)
+
+
 
